@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools-scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "benchstrace/_version.py"
+
+[project]
+name = "benchstrace"
+authors = [
+    {name = "Joseph Hunkeler", email = "jhunkeler@gmail.com"},
+]
+description = "Benchmark and compare strace data"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["benchmark", "profile"]
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+
+[project.scripts]
+benchstrace = "benchstrace.cli:main"
