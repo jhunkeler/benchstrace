@@ -228,7 +228,7 @@ class Benchmark:
             for x in sorted(keys_a):
                 if x in keys_missing:
                     x2_missing.append(x)
-                value = extract(a.result[0], x)
+                value = extract(left, x)
                 if not value:
                     continue
                 x1_data.append(value)
@@ -236,7 +236,7 @@ class Benchmark:
             for x in sorted(keys_b):
                 if x in keys_missing:
                     x1_missing.append(x)
-                value = extract(b.result[0], x)
+                value = extract(right, x)
                 x2_data.append(value)
 
             for x in sorted(x1_missing):
@@ -249,7 +249,7 @@ class Benchmark:
 
             x1_result.append(sorted(x1_data))
             x2_result.append(sorted(x2_data))
-        return zip(x1_result, x2_result)
+        return x1_result, x2_result
 
     def diff(self, b, mode=SHOW_ALL):
         """
@@ -258,7 +258,7 @@ class Benchmark:
         :param mode: flag to handle various output modes (not implemented)
         """
         a = self
-        for i, (left, right) in enumerate(self.normalize_results(a, b)):
+        for i, (left, right) in enumerate(zip(*self.normalize_results(a, b))):
             print(f"\nCOLLECTION {i+1}\n")
             for x1, x2 in zip(left, right):
                 self.diff_show_record(x1.name, x1, x2)
